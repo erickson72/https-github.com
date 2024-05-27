@@ -120,7 +120,7 @@ STATIC_ROOT = BASE_DIR / 'productionfiles'
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / ''
+    BASE_DIR / 'game/templates/static'
 ]
 
 # Default primary key field type
