@@ -1,0 +1,12 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Detetive Lógico | Resultado {% endblock title %}
+{% block content %}
+
+<h1>Resultado do Nível {{ level.level_name }}</h1>
+<p>Você acertou {{ score }} de {{ total }} perguntas.</p>
+<a href="{% url 'index' %}">Voltar para Categorias</a>
+
+{% endblock content %}

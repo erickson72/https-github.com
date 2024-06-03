@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Detetive Lógico | Jogar {% endblock title %}
+{% block content %}
+
+<main>
+    <div class="container py-4">
+        <header class="pb-3 mb-3 border-bottom">
+            <p class="col-md-8 fs-4">Seja bem-vindo à {{ category.category_name }}</p>
+            <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75"
+                aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div>
+            </div>
+        </header>
+
+
+        <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+            <div class="container-fluid">
+                <h1 class="display-5 fw-bold">A Lógica e o nosso contexto</h1>
+                <p class="col-md-8 fs-4">Dois pais e dois filhos foram pescar. Todos pescaram um peixe e pescaram ao todo 3 peixes. Como isso é possível?</p>
+
+                <div class="btn-group py-4">
+                    <button class="btn btn-primary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        data-bs-auto-close="inside" aria-expanded="false">
+                        Jogar agora
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% for level in levels %}
+                        <li><a class="dropdown-item"
+                                href="{% url 'detlog:list_of_questions' category.id level.id %}">{{level.level_name}}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+{% endblock content %}

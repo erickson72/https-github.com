@@ -16,7 +16,7 @@ admin.site.register(Category,CategoryAdmin)
 
 #Register Levels Admin
 class LevelAdmin(admin.ModelAdmin):
-    list_display = ('level_name',)
+    list_display = ('id','level_name',)
     list_display_links = ('level_name',)
     fields = ('level_name',)
     search_fields = ('level_name',)
@@ -26,8 +26,9 @@ admin.site.register(Level,LevelAdmin)
 
 #Register Questions Admin InLines
 
-class AnswerInLine(admin.StackedInline):
+class AnswerInLine(admin.TabularInline):
     model = Answer
+    extra = 4
 
 #Register Questions Admin
 class QuestionAdmin(admin.ModelAdmin):
@@ -57,11 +58,9 @@ admin.site.register(Answer,AnswerAdmin)
 
 #Register Players Admin
 class PlayerAdmin(admin.ModelAdmin):
-    list_display = ('player_name','score','time','answer')
-    list_display_links = ('player_name','score','time','answer')
-    fields = ('player_name','score','time','answer')
-    autocomplete_fields = ('answer',)
+    list_display = ('player_name','score','time','category','level')
+    list_display_links = ('player_name','score','time','category','level')
+    fields = ('player_name','score','time','category','level')
+    autocomplete_fields = ('category','level')
     ordering = ['player_name']
 admin.site.register(Player,PlayerAdmin)
-
-
