@@ -52,7 +52,7 @@ class Question(models.Model):
 class Answer(models.Model):
     id = models.AutoField(verbose_name='ID',primary_key=True, serialize=False,auto_created=True)
     answer = models.TextField(verbose_name='Resposta', max_length=255)
-    quetion = models.ForeignKey(Question,verbose_name='Questão',related_name='questions',related_query_name='question_answer', serialize=True, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question,verbose_name='Questão',related_name='questions',related_query_name='question_answer', serialize=True, on_delete=models.CASCADE)
     is_correct = models.BooleanField(verbose_name='Correcta', default=False,)
     
     def __str__(self) -> str:
@@ -67,8 +67,8 @@ class Player(models.Model):
     player_name = models.ForeignKey(User, on_delete=models.CASCADE,verbose_name='Jogador',related_name='playes')
     category = models.ForeignKey(Category, verbose_name='Categoria',serialize=True,related_name='category_players', related_query_name='player_category', on_delete=models.CASCADE)
     level = models.ForeignKey(Level, verbose_name='Nível',serialize=True,related_name='player_levels', related_query_name='player_level', on_delete=models.CASCADE)
-    score = models.IntegerField()
-    time = models.IntegerField(help_text="Tempo em segundos")
+    score = models.IntegerField(default=0)
+    time = models.IntegerField(help_text="Tempo em segundos",default=0)
     date = models.DateTimeField(auto_now_add=True)
     
     def __str__(self) -> str:

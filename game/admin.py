@@ -46,13 +46,13 @@ admin.site.register(Question,QuestionAdmin)
 
 #Register Answers Admin
 class AnswerAdmin(admin.ModelAdmin):
-    list_display = ('quetion','answer','is_correct')
-    list_display_links = ('quetion','answer','is_correct')
-    fields = ('quetion','answer','is_correct')
+    list_display = ('question','answer','is_correct')
+    list_display_links = ('question','answer','is_correct')
+    fields = ('question','answer','is_correct')
     search_fields = ('answer',)
-    autocomplete_fields = ('quetion',)
-    ordering = ['quetion']
-    unique_together = ("quetion", "answer")
+    autocomplete_fields = ('question',)
+    ordering = ['question']
+    unique_together = ("question", "answer")
 admin.site.register(Answer,AnswerAdmin)
 
 

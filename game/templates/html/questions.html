@@ -11,15 +11,30 @@
     timer = setInterval(function () {
       let now = new Date();
       let elapsed = Math.floor((now - startTime) / 1000);
-      document.getElementById('tempo').value = elapsed;
+      document.getElementById('time').innerHTML = elapsed;
     }, 1000);
   };
+
 </script>
+
+
 
 <main>
   <div class="container py-4">
     <header class="pb-3 mb-3 border-bottom">
-      <p class="col-md-12 fs-4">{{category.category_name}}: Nível {{level.level_name}}</p>
+      
+      <div class="container text-justify">
+        <div class="row justify-content-between">
+          <div class="col-9">
+            <p class="col-md-12 fs-4">{{category.category_name}}: Nível {{level.level_name}}</p>
+          </div>
+          <div class="col-3">
+            Tempo: <span id="time"></span>
+            <span id="seconds"></span>
+          </div>
+        </div>
+        
+      </div>
 
       <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="100"
         aria-valuemin="0" aria-valuemax="100">
@@ -32,31 +47,36 @@
         <div class="pagination">
           <span class="step-links">
             <span class="current">
-              <h1 class="display-6 mb-2 fw-bold">Pergunta {{ questions.number }} de {{ questions.paginator.num_pages }}:
+              <h1 class="display-6 mb-2 fw-bold">Pergunta {{ questions.number }} de {{ questions.paginator.num_pages }}: 
               </h1>
             </span>
+            
           </span>
         </div>
+
+         
         <div class="border-bottom"></div>
 
+        
         <p class="col-md-12 fs-5 py-1 border-bottom">{{question.question_text|escape|linebreaksbr}}</p>
 
         
         <form method="post" action="{% url 'detlog:playing' question.category.id question.level.id %}{% if questions.has_next %}?page={{questions.next_page_number}}{% endif %}">
           {% csrf_token %}
+          {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
           {% for answer in question.questions.all %}
           <div class="d-grid gap-2">
             <label class="p-2 alert alert-secondary mb-2" for="answer{{ forloop.counter }}">
-              <input type="radio" id="answer{{ forloop.counter }}"  class="btn btn-lg btn-block btn-primary" name="answer" value="{{ answer.id }}" required>
+              <input type="radio" id="answer{{ forloop.counter }}"  class="btn btn-lg btn-block btn-primary" name="answer" value="{{ answer.is_correct }}" required>
               {{ answer.answer }}<br>
-             
             </label>
+            
           </div>
           {% endfor %}
           <div class="d-grid gap-2">
             <button class="mt-3 btn btn-primary btn-lg p-2" type="submit">Processar</button>
           </div>
-
+         
         </form>
         
       </div>

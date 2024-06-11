@@ -13,11 +13,4 @@ class CategoryForm(forms.ModelForm):
 
 
 class AnswersForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        questions = kwargs.pop('questions', [])
-        super().__init__(*args, **kwargs)
-        for question in questions:
-            self.fields[f'question_{question.id}'] = forms.ChoiceField(
-                label=question.question_text,
-                choices=[(question.id, question.question_text) for anwser in answer.answer_set.all()],
-                widget=forms.RadioSelect )
+    answer = forms.CharField(max_length=100)

@@ -5,9 +5,10 @@ from django.contrib.auth import views as auth_views
 app_name = 'detlog'
 urlpatterns = [
     path('', views.index, name='index'),
-    path('catgory/<int:category_id>/', views.list_of_levels, name='list_of_levels'),
-    path('list/of/questions/<int:category_id>/<int:level_id>/', views.list_of_questions, name='list_of_questions'),
-    path('list/of/questions/<int:category_id>/<int:level_id>/', views.playing, name='playing'),
+    path('<int:category_id>/', views.list_of_levels, name='list_of_levels'),
+    #path('<int:category_id>/<int:level_id>/', views.list_of_questions, name='list_of_questions'),
+    path('<int:category_id>/<int:level_id>/', views.list_of_questions, name='list_of_questions'),
+    path('<int:category_id>/<int:level_id>/', views.playing, name='playing'),
     path('rules/', views.rules, name='rules'),
     path('ranking/', views.ranking, name='ranking'),
 
