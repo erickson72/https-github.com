@@ -27,7 +27,7 @@
                     <ul class="dropdown-menu">
                         {% for level in levels %}
                         <li><a class="dropdown-item"
-                                href="{% url 'detlog:list_of_questions' category.id level.id %}">{{level.level_name}}</a>
+                                href="{% url 'quizz:list_of_questions' category.id level.id %}">{{level.level_name}}</a>
                         </li>
                         {% endfor %}
                     </ul>

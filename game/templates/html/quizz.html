@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Detetive Lógico | Jogar {% endblock title %}
+{% block content %}
+<main>
+    <div class="container py-4">
+      <header class="pb-3 mb-3 border-bottom">
+        
+        <div class="container text-justify">
+          <div class="row justify-content-between">
+            <div class="col-9">
+              <p class="col-md-12 fs-4">{{category.category_name}}</p>
+            </div>
+            <div class="col-3">
+              Tempo: <span id="time"></span>
+              <span id="seconds"></span>
+            </div>
+          </div>
+          
+        </div>
+  
+        <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="100"
+          aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div>
+        </div>
+      </header>
+  
+      <div class="p-0 mb-4 bg-body-tertiary rounded-3">
+        <div class="container-fluid">
+          <div class="pagination">
+            <span class="step-links">
+              <span class="current">
+                <h1 class="display-6 mb-2 fw-bold">Pergunta {{ questions.number }} de {{ questions.paginator.num_pages }}: 
+                </h1>
+              </span>
+              
+            </span>
+          </div>
+  
+           
+          <div class="border-bottom"></div>
+  
+          
+          <p class="col-md-12 fs-5 py-1 border-bottom">{{question.question_text|escape|linebreaksbr}}</p>
+  
+          
+          <form id="quizz-form" method="post" action="{  question.category.id }{% if questions.has_next %}?page={{questions.next_page_number}}{% endif %}">
+            {% csrf_token %}
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            {% for answer in question.get_answers %}
+            <div class="d-grid gap-2">
+              <label class="p-2 alert alert-secondary mb-2" for="answer{{ forloop.counter }}">
+                <input type="radio" id="answer{{ forloop.counter }}"  class="btn btn-lg btn-block btn-primary" name="answer" value="{{ answer.is_correct }}" required>
+                {{ answer.answer_text }}<br>
+              </label>
+              
+            </div>
+            {% endfor %}
+            <div id="quizz-box"></div>
+            <div class="d-grid gap-2">
+              <button class="mt-3 btn btn-primary btn-lg p-2" type="submit">Processar</button>
+            </div>
+           
+          </form>
+          
+        </div>
+      </div>
+  
+  
+    </div>
+  
+  
+  </main>
+  
+  
+  {% endblock content %}

@@ -4,8 +4,8 @@
 {% block content %}
 
 <main>
-  <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
-    <div class="col-md-6 p-lg-5 mx-auto my-5">
+  <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 bg-body-tertiary">
+    <div class="col-md-8 p-lg-5 mx-auto my-5 text-center">
       <h1 class="display-3 fw-bold">Detective Lógico</h1>
       <h3 class="fw-normal text-muted mb-3">Bem-vindo ao mundo da lógica para a Ciência da Computação</h3>
 
@@ -14,78 +14,73 @@
           Comece a jogar
         </button>
       </div>
-      
+
+
+
+      <div class="border-bottom p-2"></div>
+      {% for category in categories%}
+      <div class="d-flex p-1 gap-3 justify-content-justify lead fw-normal">
+        <button type="button" class="btn btn-primary btn-md modal-button" data-bs-toggle="modal"
+          data-bs-target="#startGameModal" data-pk="{{category.pk}}" data-category="{{category.category_name}}"
+          data-numbers-questions="{{category.number_of_question}}" data-difficulty="{{category.defficulty}}"
+          data-score-pass="{{category.score_to_pass}}" data-time="{{category.time}}">
+          {{category.category_name}} | {{category.defficulty}}
+        </button>
+      </div>
+      {%endfor%}
+
+
+
+      <div class="modal fade" id="modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Categoria</h5>
+            </div>
+            <div class="modal-body">
+
+              <div class="btn-group align-items-center">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                  data-bs-auto-close="inside" aria-expanded="false">
+                  Selecione uma categoria
+                </button>
+                <ul class="dropdown-menu">
+                  {% for category in categories %}
+                  <li><a class="dropdown-item" href="{ url 'quizz:list_of_levels' category.id }">{{
+                      category.category_name}}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Sair</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
 
     </div>
-    <div class="product-device shadow-sm d-none d-md-block"></div>
-    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+    
+    <div class="modal fade" id="startGameModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Categoria</h5>
+          </div>
+          <div class="modal-body" id="modal-body-confirm">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Sair</button>
+            <button type="button" id="start-button" class="btn btn-success">Iniciar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
-
-
-  <div class="modal fade" id="modal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Categoria</h5>         
-        </div>
-        <div class="modal-body">
-
-          <div class="btn-group align-items-center">
-          <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="inside" aria-expanded="false">
-            Selecione uma categoria
-          </button>
-          <ul class="dropdown-menu">
-            {% for category in categories %}
-            <li><a class="dropdown-item" href="{% url 'detlog:list_of_levels' category.id %}">{{ category.category_name}}</a></li>
-            {% endfor %}
-          </ul>
-        </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Sair</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-
-
-  <!--<div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-    <div class="text-bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-      <div class="my-3 py-3">
-        <h2 class="display-5">Another headline</h2>
-        <p class="lead">And an even wittier subheading.</p>
-      </div>
-      <div class="bg-body-tertiary shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
-      </div>
-    </div>
-    <div class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-      <div class="my-3 p-3">
-        <h2 class="display-5">Another headline</h2>
-        <p class="lead">And an even wittier subheading.</p>
-      </div>
-      <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-    </div>
-  </div>-->
-
-  <!--<div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-    <div class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-      <div class="my-3 p-3">
-        <h2 class="display-5">Another headline</h2>
-        <p class="lead">And an even wittier subheading.</p>
-      </div>
-      <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-    </div>
-    <div class="text-bg-primary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-      <div class="my-3 py-3">
-        <h2 class="display-5">Another headline</h2>
-        <p class="lead">And an even wittier subheading.</p>
-      </div>
-      <div class="bg-body-tertiary shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
-      </div>
-    </div>
-  </div>-->
 </main>
 
 

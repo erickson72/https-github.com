@@ -1,0 +1,30 @@
+
+{% if question is None %}
+
+<div class="container">
+    <div class="jumbotron my-4">
+        <h1>Já respondeu todas as questões. Ver ranking</h1>
+        <a href="{% url 'quizz:ranking' %}">Ver Ranking</a>
+    </div>
+</div>
+
+ {% else %}
+<div class="container">
+    <div class="junbotron my-4">
+        <h3>{{question.question_text}}</h3>
+        <form method="post" class="form">
+            {%csrf_token%}
+            <input type="hidden" name="question_id" value="{{question.id}}">
+            {% for option in question.questions_options.all %}
+            <div class="form-check mx-4">
+            
+            <input required type="radio" name="answer_id" id="choice_{{forloop.counter}}" class="form-check-input" value="{{option.id}}">
+            <label class="form-check-label" for="choice_{{forloop.counter}}">{{option.answer_text}}</label>
+            </div>
+            {%endfor%}
+            <button type="submit" class="btn btn-success btn-md">Processar</button>
+        </form>
+    </div>
+</div>
+
+ {% endif %}

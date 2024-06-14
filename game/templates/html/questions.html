@@ -61,7 +61,7 @@
         <p class="col-md-12 fs-5 py-1 border-bottom">{{question.question_text|escape|linebreaksbr}}</p>
 
         
-        <form method="post" action="{% url 'detlog:playing' question.category.id question.level.id %}{% if questions.has_next %}?page={{questions.next_page_number}}{% endif %}">
+        <form method="post" action="{% url 'quizz:playing' question.category.id question.level.id %}{% if questions.has_next %}?page={{questions.next_page_number}}{% endif %}">
           {% csrf_token %}
           {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
           {% for answer in question.questions.all %}

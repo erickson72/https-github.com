@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Detetive Lógico | Jogar {% endblock title %}
+{% block content %}
+
+
+<div class="modal-body">
+    {{title}}
+  <form method="post">
+    
+    <div class="mb-3">
+        {%csrf_token%}
+        {{form.as_p}}
+    </div>
+    <button type="button" class="btn btn-danger btn-block" data-bs-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-success btn-block">Entrar</button>
+  </form>
+</div>
+  
+  {% endblock content %}

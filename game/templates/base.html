@@ -11,21 +11,18 @@
     <title>{% block title %} {% endblock title %}</title>
 
 
-
-    <script src="{% static 'js/color-modes.js' %}"></script>
-    <script src="{% static 'js/bootstrap.bundle.min.js.map' %}"></script>
+    {% block static %}
+    <script src="{% static 'js/color-modes.js' %}" defer></script>
+    <script src="{% static 'js/main.js' %}" defer></script>
+    <script src="{% static 'js/quiz.js' %}" defer></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}" defer></script>
    
     <link rel="stylesheet" href="{% static 'css/bootstrap-grid.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css.map' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.rtl.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.rtl.min.css.map' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    
-
-    
-    {% block css %}
-    {% endblock css %}
+  
+    {% endblock static %}
 
       
       <!-- Custom styles for this template -->
@@ -104,7 +101,7 @@
   
   <nav class="navbar navbar-expand-md bg-dark sticky-top border-bottom" data-bs-theme="dark">
     <div class="container">
-      <a class="navbar-brand d-md-none" href="{% url 'detlog:index'%}">
+      <a class="navbar-brand d-md-none" href="{% url 'quizz:index'%}">
         <svg class="bi" width="24" height="24"><use xlink:href="#aperture"/></svg>
         Home
       </a>
@@ -118,10 +115,10 @@
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav flex-grow-1 justify-content-between">
-            <li class="nav-item"><a class="nav-link" href="{% url 'detlog:index'%}">
+            <li class="nav-item"><a class="nav-link" href="{% url 'quizz:index'%}">
               <svg class="bi" width="24" height="24"><use xlink:href="#aperture"/></svg>
             </a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'detlog:index'%}">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'quizz:index'%}">Home</a></li>
             
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -129,14 +126,15 @@
               </a>
               <ul class="dropdown-menu dropdown-menu-lg-end">
                 {% for category in categories %}
-                <li><a class="dropdown-item" href="{% url 'detlog:list_of_levels' category.id %}">{{ category.category_name}}</a></li>
+                <li><a class="dropdown-item" href="{ url 'quizz:list_of_levels' category.id }">{{ category.category_name}}</a></li>
                 {% endfor %}
               </ul>
             </li>
             
-            <li class="nav-item"><a class="nav-link" href="{% url 'detlog:ranking'%}">Ranking</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'detlog:rules'%}">Regras</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'quizz:ranking'%}">Ranking</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'quizz:rules'%}">Regras</a></li>
            
+            <li class="nav-item"><a class="nav-link" href="{% url 'quizz:quiz_user_register'%}">User</a></li>
             
             <li class="nav-item"><a class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal"  href="#">
               <img width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACAklEQVR4nO2ZS24TQRCGZ+VjEB5ZsCJCIA6ADcdhE4ksWCUSEicgcAXWuUHc9f81eDlSghLiPJYIkoCUbCw5aseKOy87E1cPY6k/qeVNT3X91dXumposSyQSiZkFwEOhfhXoAag9UPsGozewB/3inJuL5jzJt6D+NXK6f9MQ6LFI3ooS+djOIxCx3uk8MBXg0yZYYIfk66IoGha2i6JoONWmULsXQsDVzJJhzg+Me+ezCDjVZiBgz9R4eGCtIn8Vbzc82JklYY6aGq5qnSTgjiDtwJSRIfkI0Hd5nj+OuU5pQD0dGj4dP48b53cFfwF4Vh8B0I+g/vO/4+YJ+GN04ZUXgYr+7W5FVV8CPLyvCPxvAR7n8ueg/g6c+UPyxcwImEYEphHQbneeALoI6JLR+Ha5ypycTphGgIA/o5fL4GY0ASC3K6j3t2Kn0AchP5kM6NoV5yeeg9ocYpILg5wfpc6hyPdXk56rhYD7Ol8LAdecL3EHRBUg5MrghoUu37WUKOt87GLuZGj4ZNy84MW8tPO1eB9wrvNUyPciMh9zndJUdbiQBNxC2oEapFBvphtbAu7Hbi2K5K1AwK6pcd+7v6jrqV2/mGVzF8CbsLkr5OfMEv/hwbe9Kyi3+wIembfXPT7qsUUIeOS71FksfGT89vr2t+UnJoB73m6UyCcSiURmyRnEUS+L75v3QwAAAABJRU5ErkJggg==">
@@ -192,7 +190,6 @@
         </div>
     </footer>
    
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <!-- 
     {% block js %}{% endblock js %} -->
 </body>

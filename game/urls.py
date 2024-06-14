@@ -2,22 +2,24 @@ from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
 
-app_name = 'detlog'
+app_name = 'quizz'
 urlpatterns = [
     path('', views.index, name='index'),
-    path('<int:category_id>/', views.list_of_levels, name='list_of_levels'),
+    #path('<int:category_id>/', views.list_of_levels, name='list_of_levels'),
     #path('<int:category_id>/<int:level_id>/', views.list_of_questions, name='list_of_questions'),
-    path('<int:category_id>/<int:level_id>/', views.list_of_questions, name='list_of_questions'),
-    path('<int:category_id>/<int:level_id>/', views.playing, name='playing'),
+    path('<int:category_id>/', views.quizz_view, name='quizz_view'),
+    #path('<int:category_id>/', views.playing, name='playing'),
     path('rules/', views.rules, name='rules'),
     path('ranking/', views.ranking, name='ranking'),
 
-    path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('login/', views.quiz_login, name='quiz_login'),
+    path('logout/',views.quiz_logout, name='quiz_logout'),
+    path('create/a/count', views.quiz_user_register, name='quiz_user_register'),
 
 
-    path('<int:question_id>/submit/', views.submit, name='submit'),
-    path('scores/', views.scores, name='scores'),
+    path('user/home/', views.quiz_user_home, name='quiz_user_home'),
+    path('quiz/play/', views.quiz_play, name='quiz_play'),
+    path('result/<int:question_answered_pk>/', views.quiz_result_questions, name='quiz_result_questions'),
     
 ]
 
