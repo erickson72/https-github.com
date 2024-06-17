@@ -62,3 +62,10 @@ class QuizUserRegisterForm(UserCreationForm):
             'password1',
             'password2'
         ] 
+
+class DefficultyForm(forms.Form):
+    difficulty = forms.ModelChoiceField(queryset=Difficulty.objects.all(), label='Saleccione o nível', widget=forms.Select,)
+    class Meta:
+        model = Difficulty
+        fields = '__all__'
+    

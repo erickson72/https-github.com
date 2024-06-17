@@ -1,196 +1,187 @@
 {% load static %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.122.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-    <title>{% block title %} {% endblock title %}</title>
+  <title>{% block title %}Enigma Digital{% endblock title %}</title>
 
 
-    {% block static %}
-    <script src="{% static 'js/color-modes.js' %}" defer></script>
-    <script src="{% static 'js/main.js' %}" defer></script>
-    <script src="{% static 'js/quiz.js' %}" defer></script>
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}" defer></script>
-   
-    <link rel="stylesheet" href="{% static 'css/bootstrap-grid.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.rtl.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  
-    {% endblock static %}
+  {% block static %}
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+  <link href="{% static 'css/fontawesome-all.css' %}" rel="stylesheet">
+  <link href="{% static 'css/swiper.css' %}" rel="stylesheet">
+  <link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet">
+  <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 
-      
-      <!-- Custom styles for this template -->
+  <link rel="icon" href="{% static 'img/favicon.png' %}">
+  {% endblock static %}
 
+  <!-- Custom styles for this template -->
 </head>
-<body class="bg-light">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-        <symbol id="check2" viewBox="0 0 16 16">
-          <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-        </symbol>
-        <symbol id="circle-half" viewBox="0 0 16 16">
-          <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
-        </symbol>
-        <symbol id="moon-stars-fill" viewBox="0 0 16 16">
-          <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
-          <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
-        </symbol>
-        <symbol id="sun-fill" viewBox="0 0 16 16">
-          <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
-        </symbol>
-      </svg>
-  
-      <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
-        <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
-                id="bd-theme"
-                type="button"
-                aria-expanded="false"
-                data-bs-toggle="dropdown"
-                aria-label="Toggle theme (auto)">
-          <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#circle-half"></use></svg>
-          <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
-          <li>
-            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
-              <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#sun-fill"></use></svg>
-              Claro
-              <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-            </button>
-          </li>
-          <li>
-            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
-              <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
-              Escuro
-              <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-            </button>
-          </li>
-          <li>
-            <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
-              <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#circle-half"></use></svg>
-              Auto
-              <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-            </button>
-          </li>
-        </ul>
-      </div>
-  
-      
-  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-    <symbol id="aperture" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="10"/>
-      <path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/>
-    </symbol>
-    <symbol id="cart" viewBox="0 0 16 16">
-      <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-    </symbol>
-    <symbol id="chevron-right" viewBox="0 0 16 16">
-      <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-    </symbol>
-  </svg>
 
 
-  
+<body data-spy="scroll" data-target=".fixed-top">
 
-  
-  <nav class="navbar navbar-expand-md bg-dark sticky-top border-bottom" data-bs-theme="dark">
-    <div class="container">
-      <a class="navbar-brand d-md-none" href="{% url 'quizz:index'%}">
-        <svg class="bi" width="24" height="24"><use xlink:href="#aperture"/></svg>
-        Home
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasLabel">Home</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-          <ul class="navbar-nav flex-grow-1 justify-content-between">
-            <li class="nav-item"><a class="nav-link" href="{% url 'quizz:index'%}">
-              <svg class="bi" width="24" height="24"><use xlink:href="#aperture"/></svg>
-            </a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'quizz:index'%}">Home</a></li>
-            
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Jogar
-              </a>
-              <ul class="dropdown-menu dropdown-menu-lg-end">
-                {% for category in categories %}
-                <li><a class="dropdown-item" href="{ url 'quizz:list_of_levels' category.id }">{{ category.category_name}}</a></li>
-                {% endfor %}
-              </ul>
-            </li>
-            
-            <li class="nav-item"><a class="nav-link" href="{% url 'quizz:ranking'%}">Ranking</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'quizz:rules'%}">Regras</a></li>
-           
-            <li class="nav-item"><a class="nav-link" href="{% url 'quizz:quiz_user_register'%}">User</a></li>
-            
-            <li class="nav-item"><a class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal"  href="#">
-              <img width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACAklEQVR4nO2ZS24TQRCGZ+VjEB5ZsCJCIA6ADcdhE4ksWCUSEicgcAXWuUHc9f81eDlSghLiPJYIkoCUbCw5aseKOy87E1cPY6k/qeVNT3X91dXumposSyQSiZkFwEOhfhXoAag9UPsGozewB/3inJuL5jzJt6D+NXK6f9MQ6LFI3ooS+djOIxCx3uk8MBXg0yZYYIfk66IoGha2i6JoONWmULsXQsDVzJJhzg+Me+ezCDjVZiBgz9R4eGCtIn8Vbzc82JklYY6aGq5qnSTgjiDtwJSRIfkI0Hd5nj+OuU5pQD0dGj4dP48b53cFfwF4Vh8B0I+g/vO/4+YJ+GN04ZUXgYr+7W5FVV8CPLyvCPxvAR7n8ueg/g6c+UPyxcwImEYEphHQbneeALoI6JLR+Ha5ypycTphGgIA/o5fL4GY0ASC3K6j3t2Kn0AchP5kM6NoV5yeeg9ocYpILg5wfpc6hyPdXk56rhYD7Ol8LAdecL3EHRBUg5MrghoUu37WUKOt87GLuZGj4ZNy84MW8tPO1eB9wrvNUyPciMh9zndJUdbiQBNxC2oEapFBvphtbAu7Hbi2K5K1AwK6pcd+7v6jrqV2/mGVzF8CbsLkr5OfMEv/hwbe9Kyi3+wIembfXPT7qsUUIeOS71FksfGT89vr2t+UnJoB73m6UyCcSiURmyRnEUS+L75v3QwAAAABJRU5ErkJggg==">
-            </a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-
-
-  
- 
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="email" class="col-form-label">E-mail:</label>
-            <input type="email" class="form-control" id="email">
-          </div>
-          <div class="mb-3">
-            <label for="password" class="col-form-label">Password:</label>
-            <input type="password" class="form-control" id="password">
-          </div>
-          <button type="button" class="btn btn-danger btn-block" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-success btn-block">Entrar</button>
-        </form>
-      </div>
-      <div class="modal-footer">
-        
-        
-      </div>
+  <!-- Preloader -->
+  <div class="spinner-wrapper">
+    <div class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
     </div>
   </div>
-</div>
+  <!-- end of preloader -->
 
 
-    {% block content %}
-    {% endblock content %}
-    <footer class="bg-light text-muted py-0">
-        <div class="container py-4">
-            <ul class="list-inline mb-0 text-center">
-                <li class="list-inline-item">&copy;{% now "Y" %} Detetive Lógico</li>
-                <li class="list-inline-item">| Direitos de autores.</li>
-            </ul>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+      <!-- Text Logo - Use this if you don't have a graphic logo -->
+      <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Sync</a> -->
+
+      <!-- Image Logo -->
+      <a class="navbar-brand logo-image" href="{% url 'quizz:index'%}"><img class="text-danger" src="{% static 'img/logo3.svg' %}"
+          alt="alternative"></a>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-awesome fas fa-bars"></span>
+        <span class="navbar-toggler-awesome fas fa-times"></span>
+      </button>
+      <!-- end of mobile menu toggle button -->
+
+      <div class="collapse navbar-collapse text-uppercase" id="navbarsExampleDefault">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link page-scroll" href="{% url 'quizz:index'%}">Home<span class="sr-only">(current)</span></a>
+          </li>
+          <!-- Dropdown Menu -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle page-scroll" id="navbarDropdown" role="button" aria-haspopup="true"
+              aria-expanded="false">Jogar</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% for cat in categories%}
+              <a class="dropdown-item" href="{% url 'quizz:quizz_view_category' cat.id %}"><span class="item-text">{{cat.category_name}}</span></a>
+              <div class="dropdown-divider"></div>
+              {%endfor%}
+            </div>
+          </li>
+          <!-- end of dropdown menu -->
+           <!-- Dropdown Menu -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle page-scroll" id="navbarDropdown" role="button" aria-haspopup="true"
+              aria-expanded="false">Aprender</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% for cat in categories%}
+              <a class="dropdown-item" href="{% url 'quizz:learning' cat.id %}"><span class="item-text">{{cat.category_name}}</span></a>
+              <div class="dropdown-divider"></div>
+              {%endfor%}
+            </div>
+          </li>
+          <!-- end of dropdown menu -->
+          <li class="nav-item">
+            <a class="nav-link page-scroll" href="{% url 'quizz:ranking'%}">Ranking</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link page-scroll" href="{% url 'quizz:rules'%}">Regras</a>
+          </li>
+        </ul>
+        <span class="nav-item">
+          <a class="btn-outline-sm page-scroll" href="{% url 'quizz:quiz_user_register'%}">LOGIN</a>
+        </span>
+      </div>
+    </div> <!-- end of container -->
+  </nav> <!-- end of navbar -->
+  <!-- end of navigation -->
+
+
+
+
+
+
+  {% block content %}
+
+
+
+  {% endblock content %}
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 ">
+
+          <div class="text-center">
+            <span class="fa-stack">
+              <a href="https://">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-facebook-f fa-stack-1x"></i>
+              </a>
+            </span>
+            <span class="fa-stack">
+              <a href="https://">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-twitter fa-stack-1x"></i>
+              </a>
+            </span>
+            <span class="fa-stack">
+              <a href="https://">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-instagram fa-stack-1x"></i>
+              </a>
+            </span>
+          </div>
         </div>
-    </footer>
-   
-    <!-- 
-    {% block js %}{% endblock js %} -->
+      </div>
+    </div>
+  </div> <!-- end of footer -->
+  <!-- end of footer -->
+
+
+  <!-- Copyright -->
+  <div class="copyright">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <p class="p-small">&copy;{% now "Y" %} Enigma Digital <a href="{% url 'quizz:index'%}">FACOM-UFU</a> -
+            Direitos de autores</p>
+        </div> <!-- end of col -->
+      </div> <!-- enf of row -->
+    </div> <!-- end of container -->
+  </div> <!-- end of copyright -->
+  <!-- end of copyright -->
+
+
+
+  {% block js %}
+  <!-- Scripts -->
+  <script src="{% static 'js/jquery.min.js' %}" defer></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+  <script src="{% static 'js/popper.min.js' %}" defer></script> <!-- Popper tooltip library for Bootstrap -->
+  <script src="{% static 'js/bootstrap.min.js' %}" defer></script> <!-- Bootstrap framework -->
+  <script src="{% static 'js/jquery.easing.min.js' %}" defer></script>
+  <!-- jQuery Easing for smooth scrolling between anchors -->
+  <script src="{% static 'js/swiper.min.js' %}" defer></script> <!-- Swiper for image and text sliders -->
+  <script src="{% static 'js/jquery.magnific-popup.js' %}" defer></script> <!-- Magnific Popup for lightboxes -->
+  <script src="{% static 'js/validator.min.js' %}" defer></script>
+  <!-- Validator.js - Bootstrap plugin that validates forms -->
+  <script src="{% static 'js/scripts.js' %}" defer></script> <!-- Custom scripts -->
+  <script src="{% static 'js/main.js' %}" defer></script>
+  <script src="{% static 'js/quiz.js' %}" defer></script>
+  {% endblock js %}
+
 </body>
+
 </html>

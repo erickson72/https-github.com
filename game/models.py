@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.timezone import now
+import datetime
 import random
+
 
 
 # Create your models here.
@@ -15,6 +18,9 @@ class Difficulty(models.Model):
 
     def __str__(self):
         return f"{self.difficulty_text}"
+    
+    def json(self):
+        return{'id':str(self.id),'difficulty_text':str(self.difficulty_text)}
 
 class Category(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True, verbose_name='ID')
@@ -129,10 +135,14 @@ class Result(models.Model):
     is_correct = models.BooleanField(verbose_name='Correcta', default=False,null=False)
     score = models.IntegerField(default=0)
     time = models.IntegerField(help_text="Tempo em segundos",default=0)
+    pub_date = models.DateTimeField(auto_created=True,auto_now=True)
 
       
     def __str__(self) -> str:
         return f"{self.quiz_user.user.username}"
+    
+    def was_published_recently(self):
+        return self.pub_date >= now() - datetime.timedelta(days=1)
         
     
     class Meta:
@@ -143,10 +153,30 @@ class Result(models.Model):
 class Config(models.Model):
     id = models.AutoField(verbose_name='ID',primary_key=True, auto_created=True)
     rule = models.TextField(null=True, verbose_name='Regra')
-
+    
     class Meta:
         verbose_name = ("Regra")
         verbose_name_plural = ("Regras")
 
     def __str__(self):
         return self.rule
+    
+class Settings(models.Model):
+    id = models.AutoField(verbose_name='ID',primary_key=True, auto_created=True)
+    category = models.ForeignKey(Category, verbose_name='Categoria',on_delete=models.CASCADE, null=True)
+    definition = models.TextField(null=True, verbose_name='Conceitos')
+    text = models.TextField(null=True, verbose_name='Conteúdo', blank=True)
+    extra = models.CharField(null=True, verbose_name='Info', blank=True, max_length=255)
+    link = models.CharField(null=True, verbose_name='link', blank=True, max_length=255)
+    pub_date = models.DateTimeField(auto_created=True,auto_now=True)
+
+
+    class Meta:
+        verbose_name = ("Definição")
+        verbose_name_plural = ("Definições")
+    
+    def __str__(self):
+        return self.definition
+    
+    def was_published_recently(self):
+        return self.pub_date >= now() - datetime.timedelta(days=1)

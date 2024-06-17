@@ -1,30 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Enigma Digital | Jogar {% endblock title %}
+{% block content %}
+
 
 {% if question is None %}
 
-<div class="container">
-    <div class="jumbotron my-4">
-        <h1>Já respondeu todas as questões. Ver ranking</h1>
-        <a href="{% url 'quizz:ranking' %}">Ver Ranking</a>
-    </div>
-</div>
+<!-- Header -->
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
 
- {% else %}
-<div class="container">
-    <div class="junbotron my-4">
-        <h3>{{question.question_text}}</h3>
-        <form method="post" class="form">
-            {%csrf_token%}
-            <input type="hidden" name="question_id" value="{{question.id}}">
-            {% for option in question.questions_options.all %}
-            <div class="form-check mx-4">
-            
-            <input required type="radio" name="answer_id" id="choice_{{forloop.counter}}" class="form-check-input" value="{{option.id}}">
-            <label class="form-check-label" for="choice_{{forloop.counter}}">{{option.answer_text}}</label>
-            </div>
-            {%endfor%}
-            <button type="submit" class="btn btn-success btn-md">Processar</button>
-        </form>
-    </div>
-</div>
+                <div class="text-container text-center text-muted">
+                    <h3 class="text-uppercase">Já respondeu à todas as questões</h3>
+                    <a class="btn btn-danger py-2 mt-3 block text-uppercase btn-lg" style="text-decoration: none;"
+                        role="button" aria-pressed="true" href="{% url 'quizz:ranking' %}">Ver Ranking</a>
+                    <div class="">
+                        <img class="img-fluid" src="{% static 'img/congratulations.svg' %}" alt="alternative">
+                    </div>
+                </div> <!-- end of text-container -->
+            </div> <!-- end of col -->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+    <div class="deco-white-circle-1">
+        <img src="{% static 'img/decorative-white-circle.svg' %}" alt="alternative">
+    </div> <!-- end of deco-white-circle-1 -->
+    <div class="deco-white-circle-2">
+        <img src=" {% static 'img/decorative-white-circle.svg' %}" alt="alternative">
+    </div> <!-- end of deco-white-circle-2 -->
+    <div class="deco-blue-circle">
+        <img src="{% static 'img/decorative-blue-circle.svg' %}" alt="alternative">
+    </div> <!-- end of deco-blue-circle -->
+    <div class="deco-yellow-circle">
+        <img src="{% static 'img/decorative-yellow-circle.svg' %}" alt="alternative">
+    </div> <!-- end of deco-yellow-circle -->
+    <div class="deco-green-diamond">
+        <img src="{% static 'img/decorative-green-diamond.svg' %}" alt="alternative">
+    </div> <!-- end of deco-yellow-circle -->
+</header> <!-- end of header -->
+<!-- end of header -->
 
- {% endif %}
+
+
+
+{% else %}
+
+<!-- Privacy Content -->
+<div class="ex-basic-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="image-container-large">
+                </div> <!-- end of image-container-large -->
+                <div class="row">
+                    <div class="col-md-9">
+                        <h4 class="text-uppercase"> {{question.category.category_name}} |
+                            {{question.difficulty.difficulty_text}}</h4>
+                    </div> <!-- end of col -->
+
+                    <div class="col-md-3">
+                        <h5 class="text-uppercase">Tempo: <span id="time">0</span>
+                            <span id="seconds"></span>
+                        </h5>
+                    </div> <!-- end of col -->
+                </div> <!-- end of row -->
+                <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75"
+                    aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%">
+                    </div>
+                </div>
+
+                <div class="border-bottom mt-2"></div>
+
+                <div class="text-container mt-3">
+                    <h5 class="py-2">{{question.question_text|escape|linebreaksbr}}</h5>
+                    <form method="post" class="">
+                        {%csrf_token%}
+                        <input type="hidden" name="question_id" value="{{question.id}}">
+                        {% for option in question.questions_options.all %}
+
+                        <div class="form-check alert alert-secondary mb-2 py-2 form-control" role="alert">
+
+
+                            <label class="form-check-label btn-block display-6" for="choice_{{forloop.counter}}">
+                                <input required type="radio" name="answer_id" id="choice_{{forloop.counter}}"
+                                    class="form-check-input" value="{{option.id}}">
+                                {{option.answer_text|escape|linebreaksbr}}</label>
+
+
+                        </div>
+
+
+
+
+
+                        {%endfor%}
+                        <button type="submit" class="mt-3 btn btn-success btn-lg py-2">Processar <i
+                                class="fa fa-regular fa-play mx-1"></i>
+                        </button>
+                    </form>
+
+                </div> <!-- end of text container -->
+
+
+
+
+            </div> <!-- end of col-->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+</div> <!-- end of ex-basic-2 -->
+
+
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Detetive Lógico | Jogar {% endblock title %}
+{% block content %}
+
+
+<!-- Privacy Content -->
+<div class="ex-basic-2">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="image-container-large">
+        </div> <!-- end of image-container-large -->
+        <div class="text-container">
+          <h4 class="text-uppercase">Aprender {{single_category.category_name}}</h4>
+          <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75"
+            aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div>
+          </div>
+
+          <div class="text-container last">
+            {%if settings is not None %}
+
+
+            {% for content in settings %}
+            {% autoescape on %}
+            <div class=" py-2 mt-3">
+              <p class="text-justify"> <strong>{{ content.category.category_name }}:</strong>
+                {{content.definition|escape|linebreaksbr}}</p>
+
+              <p class="text-justify">{{content.text|escape|linebreaksbr}}</p>
+            </div>
+
+            {% endautoescape %}
+
+            {% endfor %}
+
+            <div class="pagination py-1">
+              <span class="step-links">
+                {% if settings.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ settings.previous_page_number }}">
+                  < </a>
+                    {% endif %}
+
+                    <span class="current">
+                      Página {{ settings.number }} de {{ settings.paginator.num_pages }}.
+                    </span>
+
+                    {% if settings.has_next %}
+                    <a href="?page={{ settings.next_page_number }}"> > </a>
+                    <a href="?page={{ settings.paginator.num_pages }}"> >> &raquo;</a>
+                    {% endif %}
+              </span>
+            </div>
+            {%else%}
+            <div class=" py-2 mt-3">
+              <p>Não existe conteúdo a aprender. Volte mais tarde.</p>
+              <a class="btn btn-danger btn-lg text-decoration-none" role="button"
+                href="{% url 'quizz:index' %}">Valtar</a>
+            </div>
+            {%endif%}
+          </div>
+
+
+        </div> <!-- end of text-container-->
+
+
+      </div> <!-- end of col-->
+    </div> <!-- end of row -->
+  </div> <!-- end of container -->
+</div> <!-- end of ex-basic-2 -->
+
+{% endblock content %}

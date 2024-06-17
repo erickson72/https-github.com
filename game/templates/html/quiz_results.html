@@ -1,43 +1,80 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} Detetive Lógico | Regras {% endblock title %}
+{% block title %} Enigma Digital | Resultado {% endblock title %}
 {% block content %}
 
-<main>
-    <div class="container py-4">
-        <header class="pb-3 mb-3 border-bottom">
-            <h2 class="col-md-12">{{title}}</h2>
-            <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75"
-                aria-valuemin="0" aria-valuemax="100">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div>
-            </div>
-        </header>
-        <div class="row align-items-center">
-            <div class="card py-4">
-                <h5 class="text-info">{{answered.question.question_text|safe|escape|linebreaksbr}}</h5>
-                <p class="py-2 border-bottom"><strong>Resposta selecionada:</strong>
-                    {{answered.answer.answer_text|safe}}</p>
-                <div class="card-body">
+
+
+<!-- Privacy Content -->
+<div class="ex-basic-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="image-container-large">
+                </div> <!-- end of image-container-large -->
+                <div class="text-container">
+                    <h4 class="text-uppercase">Confirmação do resultado</h4>
                     {% if answered.answer.is_correct %}
-                    <div class="alert alert-success" role="alert">
-                        <h4 class="card-title">Sucesso! Sua resposta está correta.</h4>
+                    <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75"
+                        aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                            style="width: 100%"></div>
                     </div>
-                    <a href="{% url 'quizz:quiz_play' %}" class="btn btn-primary btn-success btn-lg">Continuar?</a>
-                    {% else %}
-                    <div class="alert alert-danger" role="alert">
-                        <h4 class="card-title">Ops! Sua resposta está incorreta.</h4>
-                        {% for answer in answered.question.questions_options.all%}
-                        {% if answer.is_correct %}
-                        <h5 class="py-2"> A opção correta é: <span class="text-success">{{answer.answer_text}}</span></h5>
-                        {% endif %}
-                        {% endfor %}
+                     {%else%}
+                    <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75"
+                        aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+                            style="width: 100%"></div>
                     </div>
-                    <a href="{% url 'quizz:quiz_play' %}" class="btn btn-primary btn-danger btn-lg">Continuar?</a>
                     {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
+
+
+                    <div class="card">
+                        <div class="card-header bg-light py-2">
+                            <h5 class="text-info">
+                                {{answered.question.question_text|safe|escape|linebreaksbr}}</h5>
+                            <p><strong>Resposta selecionada:</strong>
+                                {{answered.answer.answer_text|safe|linebreaksbr}}</p>
+                        </div>
+                        <div class="card-body">
+                            {% if answered.answer.is_correct %}
+                            <div class="alert alert-success" role="alert">
+                                <h4 class="card-title">Sucesso! Sua resposta está correta.</h4>
+                            </div>
+                            <a href="{% url 'quizz:quiz_play' answered.question.category.id answered.question.difficulty.id %}"
+                                class="btn btn-primary btn-success btn-lg text-decoration-none" role="button"
+                                type="submit">Continuar?</a>
+                            {% else %}
+                            <div class="alert alert-danger" role="alert">
+                                <h4 class="card-title">Ops! Sua resposta está incorreta.</h4>
+                                {% for answer in answered.question.questions_options.all%}
+                                {% if answer.is_correct %}
+                                <h5 class="py-2"> A opção correta é: <span
+                                        class="text-success">{{answer.answer_text}}</span>
+                                </h5>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            <a href="{% url 'quizz:quiz_play' answered.question.category.id answered.question.difficulty.id %}"
+                                class="btn btn-primary btn-danger btn-lg text-decoration-none" role="button"
+                                type="submit">Continuar?</a>
+                            {% endif %}
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+                </div> <!-- end of text-container-->
+
+
+            </div> <!-- end of col-->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+</div> <!-- end of ex-basic-2 -->
+
 
 {% endblock content %}

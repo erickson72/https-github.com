@@ -82,3 +82,14 @@ class ConfigAdmin(admin.ModelAdmin):
     search_fields = ('rule',)
     ordering = ['rule']
 admin.site.register(Config,ConfigAdmin)
+
+
+
+class SettingAdmin(admin.ModelAdmin):
+    list_display = ('category','definition','text','extra','link',)
+    list_display_links = ('category','definition','text','extra','link',)
+    fields = ('category','definition','text','extra','link',)
+    search_fields = ('category','definition','text','extra','link',)
+    autocomplete_fields = ('category',)
+    ordering = ['category']
+admin.site.register(Settings,SettingAdmin)
