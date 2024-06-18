@@ -77,13 +77,13 @@
                             {% for winner in total_quiz_user%}
                             <div class="swiper-slide text-center">
                                 <div class="card">
-                                    <small>{{forloop.counter}}º</small>
-                                    <div class="card-image alert bg-info">
+                                    <small class="display-6">{{forloop.counter}}º</small>
+                                    <div class="card-image alert bg-primary">
                                         <i class="fas fa-user" style="color: #fff;"></i>
                                     </div>
                                     <div class="card-body">
-                                        <p class="card-title text-uppercase">{{winner.total_score}}</p>
-                                        <p class="card-title text-uppercase">{{winner.user.username}}</p>
+                                        <h6 class="text-uppercase">{{winner.total_score}}</h6>
+                                        <h6 class="text-uppercase">{{winner.user.username}}</h6>
                                     </div>
 
                                 </div>

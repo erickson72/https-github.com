@@ -1,7 +1,46 @@
-<form method="post">
-{%csrf_token%}
-{{form.as_p}}
-<button type="submit">
-    Enviar
-</button>
-</form>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Enigma Digital | Regras {% endblock title %}
+{% block content %}
+
+
+
+<!-- Features -->
+<div id="features" class="basic-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 py-3 mt-2">
+                <h3 class="p-heading">{{title}}</h3>
+            </div> <!-- end of div -->
+        </div> <!-- end of div -->
+        <div class="row">
+            <div class="col-lg-4">
+            </div> <!-- end of col -->
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body py-4 mt-2">
+                        <form method="post">
+                            {%csrf_token%}
+                            {{form.as_p}}
+                            <button type="submit" class="btn btn-success btn-md">
+                                Login
+                            </button>
+                        </form>
+
+                        <p>Não possui conta? <a class="text-decoration-none text-danger" href="{% url 'quizz:quiz_user_register' %}">Registe-se</a></p>
+                    </div>
+                </div>
+            </div> <!-- end of col -->
+            <div class="col-lg-4">
+
+
+
+            </div> <!-- end of col -->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+</div> <!-- end of basic-2 -->
+<!-- end of features -->
+
+
+
+{% endblock content %}

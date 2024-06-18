@@ -41,7 +41,7 @@
                             <div class="alert alert-success" role="alert">
                                 <h4 class="card-title">Sucesso! Sua resposta está correta.</h4>
                             </div>
-                            <a href="{% url 'quizz:quiz_play' answered.question.category.id answered.question.difficulty.id %}"
+                            <a href="{% url 'quizz:quiz_play' category.id difficulty.id %}"
                                 class="btn btn-primary btn-success btn-lg text-decoration-none" role="button"
                                 type="submit">Continuar?</a>
                             {% else %}
@@ -55,7 +55,7 @@
                                 {% endif %}
                                 {% endfor %}
                             </div>
-                            <a href="{% url 'quizz:quiz_play' answered.question.category.id answered.question.difficulty.id %}"
+                            <a href="{% url 'quizz:quiz_play' category.id difficulty.id %}"
                                 class="btn btn-primary btn-danger btn-lg text-decoration-none" role="button"
                                 type="submit">Continuar?</a>
                             {% endif %}

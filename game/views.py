@@ -4,11 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, Http404
 from django.contrib.auth import login,logout,authenticate
 from django.core.exceptions import ObjectDoesNotExist
-from django.core import serializers
 from game.models import*
 from .forms import*
-import logging
-logger = logging.getLogger('django')
 
 
 
@@ -27,6 +24,8 @@ def index(request):
 
 #Player login Route View
 def quiz_login(request):
+    categories = Category.objects.all()
+    difficulties = Difficulty.objects.all()
     title = 'Iniciar Sessão'
     form =  QuizUserLogin(request.POST or None)
     if form.is_valid():
@@ -35,12 +34,13 @@ def quiz_login(request):
         user = authenticate(request,username=username, password=password)
         if user is not None:
             login(request, user)
-        return redirect('quizz:quiz_user_home')
-    context = {'title':title,'form':form}
+        return redirect('quizz:index')
+    context = {'title':title,'form':form,'categories':categories,'difficulties':difficulties}
     return render(request,'html/login.html',context)
         
 
 #Player Logout Route view
+@login_required
 def quiz_logout(request):
     logout(request)
     return redirect('quizz:index')
@@ -48,7 +48,7 @@ def quiz_logout(request):
 
 #user create account Route View
 def quiz_user_register(request):
-    title = 'Criar Conta de Competidor '
+    title = 'Criar Conta de Utilizador '
     if request.method == 'POST':
         form = QuizUserRegisterForm(request.POST)
         if form.is_valid():
@@ -57,7 +57,7 @@ def quiz_user_register(request):
     else:
         form = QuizUserRegisterForm()
     context = {'form':form,'title':title}
-    return render(request,'html/quiz_user.html',context)
+    return render(request,'html/quiz_user_register.html',context)
 
 
 def quizz_view_category(request, category_id=None):
@@ -70,46 +70,40 @@ def quizz_view_category(request, category_id=None):
 
 #Player Playing
 @login_required
-def quiz_play(request, category_id=None, difficulty_id=None):
+def quiz_play(request, category_id, difficulty_id):
     categories = Category.objects.all()
     difficulties = Difficulty.objects.all()
+    category = get_object_or_404(Category,pk=category_id)
+    difficulty = get_object_or_404(Difficulty,pk=difficulty_id)
     quiz_user, created = QuizUser.objects.get_or_create(user=request.user)
     if request.method == 'POST':
         question_id = request.POST.get('question_id')
         answer_id = request.POST.get('answer_id')
-        question_answered = quiz_user.choices.select_related('question').get(question_id=question_id)
-
-       
-        difficulty = request.POST.get('difficulty_id')
-        category = request.POST.get('category_id')
-
-        printlogger = logging.getLogger('django')
-        print('parametro 1 - Nivel: ',difficulty)
-        print('parametro 1 - Categoria',category)
-        logger.info('here goes your message',difficulty)
-
+    
+        question_answered = quiz_user.choices.select_related('question','question__category','question__difficulty').get(question_id=question_id,category=category.id,difficulty=difficulty.id)
+        
         try:
             selected_option = question_answered.question.questions_options.get(pk=answer_id)
         except ObjectDoesNotExist:
             Http404
-        print('parametro 2 - Nivel: ',difficulty)
-        print('parametro 2 - Categoria',category)
         quiz_user.validate_attempt(question_answered,selected_option)
-        return redirect('quizz:quiz_result_questions',question_answered.pk)
+        return redirect('quizz:quiz_result_questions',question_answered.pk,category.pk,difficulty.pk)
 
     else:
-        question = quiz_user.get_new_questions()
-        #if question is not None:
-           # quiz_user.create_attempts(question)
-        context = {'question':question,'categories':categories,'difficulties':difficulties}
+        question = quiz_user.get_new_questions(category,difficulty)
+        if question is not None and category is not None and difficulty is not None:
+            quiz_user.create_attempts(question,category,difficulty)
+        context = {'question':question,'categories':categories,'difficulties':difficulties,'category':category,'difficulty':difficulty}
     return render(request,'html/quiz_play.html',context)
 
 
-def quiz_result_questions(request,question_answered_pk=None):
+def quiz_result_questions(request,question_answered_pk,category_id,difficulty_id):
     categories = Category.objects.all()
     difficulties = Difficulty.objects.all()
-    answered = get_object_or_404(Result,pk=question_answered_pk)
-    context = {'answered':answered,'categories':categories,'difficulties':difficulties }
+    category = get_object_or_404(Category,pk=category_id)
+    difficulty = get_object_or_404(Difficulty,pk=difficulty_id)
+    answered = get_object_or_404(Result,pk=question_answered_pk,category_id=category.pk,difficulty_id=difficulty.pk)
+    context = {'answered':answered,'categories':categories,'difficulties':difficulties,'category':category,'difficulty':difficulty}
     return render(request,'html/quiz_results.html',context)
 
 
@@ -159,32 +153,7 @@ def rules(request):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #Player Home Route View
 @login_required
 def quiz_user_home(request):
     return render(request,'html/quiz_user_home.html',)
-

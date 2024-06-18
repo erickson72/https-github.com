@@ -100,14 +100,26 @@
           </li>
         </ul>
         <span class="nav-item">
-          <a class="btn-outline-sm page-scroll" href="{% url 'quizz:quiz_user_register'%}">LOGIN</a>
+          {% if user.is_authenticated %}
+          <a class="btn-outline-sm page-scroll page-scroll" role="button" aria-pressed="true" href="{% url 'quizz:quiz_logout'%}">Sair</a>
+          {%else%}
+          <a class="btn-outline-sm page-scroll" href="{% url 'quizz:quiz_login'%}">LOGIN</a>
+          {%endif%}
         </span>
       </div>
     </div> <!-- end of container -->
   </nav> <!-- end of navbar -->
   <!-- end of navigation -->
 
-
+<style>
+  #login{
+    border-color: #28a745; 
+    color: #28a745;
+  } 
+  #login:hover{
+    color: #fff;
+    background-color: #28a745;}
+</style>
 
 
 

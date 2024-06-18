@@ -14,7 +14,7 @@ urlpatterns = [
     path('<int:category_id>/learning/', views.learning, name='learning'),
     path('<int:category_id>/<int:difficulty_id>/play/', views.quiz_play, name='quiz_play'),
     path('user/home/', views.quiz_user_home, name='quiz_user_home'),
-    path('result/<int:question_answered_pk>/', views.quiz_result_questions, name='quiz_result_questions'),
+    path('result/<int:question_answered_pk>/<int:category_id>/<int:difficulty_id>/', views.quiz_result_questions, name='quiz_result_questions'),
 ]
 
 

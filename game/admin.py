@@ -3,10 +3,10 @@ from game.models import *
 from game.forms import *
 
 class DifficultyAdmin(admin.ModelAdmin):
-    list_display = ('difficulty_text',)
-    list_display_links = ('difficulty_text',)
-    fields = ('difficulty_text',)
-    search_fields = ('difficulty_text',)
+    list_display = ('difficulty_text','total_time',)
+    list_display_links = ('difficulty_text','total_time',)
+    fields = ('difficulty_text','total_time',)
+    search_fields = ('difficulty_text','total_time',)
     ordering = ['difficulty_text']
 admin.site.register(Difficulty,DifficultyAdmin)
 

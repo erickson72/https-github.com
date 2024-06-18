@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.timezone import now
 import datetime
 import random
+import time
 
 
 
@@ -11,6 +12,7 @@ import random
 class Difficulty(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True, verbose_name='ID')
     difficulty_text = models.CharField(verbose_name='Nível', max_length=40)
+    total_time = models.IntegerField(help_text="Tempo em segundos",default=0,verbose_name='Tempo')
 
     class Meta:
         verbose_name = ("Nével")
@@ -19,8 +21,8 @@ class Difficulty(models.Model):
     def __str__(self):
         return f"{self.difficulty_text}"
     
-    def json(self):
-        return{'id':str(self.id),'difficulty_text':str(self.difficulty_text)}
+    
+
 
 class Category(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True, verbose_name='ID')
@@ -59,6 +61,11 @@ class Question(models.Model):
     
     def get_answers(self):
         return self.answer_set.all()
+    
+    def countTimer(self):   
+        for i in range(0, self.difficulty.total_time):
+            time.sleep(1)
+            return int(i)
   
     
 class Answer(models.Model):
@@ -88,13 +95,13 @@ class QuizUser(models.Model):
     def __str__(self):
         return f"{self.user.username}"
     
-    def create_attempts(self,question):
-        attempt = Result(question=question,quiz_user=self)
+    def create_attempts(self,question,category,difficulty):
+        attempt = Result(question=question,quiz_user=self,category=category,difficulty=difficulty)
         attempt.save()
     
-    def get_new_questions(self):
-        answered = Result.objects.filter(quiz_user=self).values_list('question__pk',flat=True)
-        remaining_questions = Question.objects.exclude(pk__in=answered)
+    def get_new_questions(self,category,difficulty):
+        answered = Result.objects.filter(quiz_user=self,category=category,difficulty=difficulty).values_list('question__pk',flat=True)
+        remaining_questions = Question.objects.filter(category=category,difficulty=difficulty).exclude(pk__in=answered)
         if not remaining_questions.exists():
             return None
         return random.choice(remaining_questions)
@@ -108,8 +115,12 @@ class QuizUser(models.Model):
             question_answered.score = answer_selected.question.max_score
             question_answered.category = answer_selected.question.category
             question_answered.difficulty = answer_selected.question.difficulty
+            question_answered.time = random.randrange(10,60,1)
             question_answered.answer = answer_selected
         else:
+            question_answered.category = answer_selected.question.category
+            question_answered.difficulty = answer_selected.question.difficulty
+            question_answered.time = random.randrange(10,60,1)
             question_answered.answer = answer_selected
         question_answered.save()
         self.update_score()
@@ -121,17 +132,15 @@ class QuizUser(models.Model):
         self.save()
         
 
-    
-
 
     
 class Result(models.Model):
     id = models.AutoField(verbose_name='ID',primary_key=True, auto_created=True)
     quiz_user = models.ForeignKey(QuizUser,verbose_name='Jogador', on_delete=models.CASCADE,related_name='choices')
-    question = models.ForeignKey(Question,verbose_name='Questão', on_delete=models.CASCADE, null=True)
+    question = models.ForeignKey(Question,verbose_name='Questão', on_delete=models.CASCADE)
     answer = models.ForeignKey(Answer, verbose_name='Resposta', on_delete=models.CASCADE, null=True)
-    category = models.ForeignKey(Category, verbose_name='Categoria',on_delete=models.CASCADE, null=True)
-    difficulty = models.ForeignKey(Difficulty, verbose_name='Nível',  on_delete=models.CASCADE, null=True)
+    category = models.ForeignKey(Category, verbose_name='Categoria',on_delete=models.CASCADE)
+    difficulty = models.ForeignKey(Difficulty, verbose_name='Nível',  on_delete=models.CASCADE)
     is_correct = models.BooleanField(verbose_name='Correcta', default=False,null=False)
     score = models.IntegerField(default=0)
     time = models.IntegerField(help_text="Tempo em segundos",default=0)

@@ -25,8 +25,8 @@ class AnswerInlineFormer(forms.BaseInlineFormSet):
 
 
 class QuizUserLogin(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(label='',help_text='Utilizador',widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Informe um utilizador'}))
+    password = forms.CharField(label='',help_text='Senha',widget=forms.PasswordInput(attrs={'class':'form-control','placeholder':'Informe uma senha'}))
 
     def clean(self, *args, **kwargs):
         username = self.cleaned_data.get('username')
@@ -36,7 +36,7 @@ class QuizUserLogin(forms.Form):
             user = authenticate(username=username,password=password)
 
             if not user:
-                raise forms.ValidationError('Jogador não encontrado...')
+                raise forms.ValidationError('Utilizador e/ou Senha inválidos.')
             if not user.check_password(password):
                 raise forms.ValidationError('Password errada...')
             if not user.is_active:
@@ -47,9 +47,13 @@ class QuizUserLogin(forms.Form):
 
 
 class QuizUserRegisterForm(UserCreationForm):
-    email = forms.EmailField(required=True,label='Email')
-    first_name = forms.CharField(required=True,label='Nome')
-    last_name = forms.CharField(required=True,label='Sobrenome')
+    email = forms.EmailField(required=True,label='Email',widget=forms.EmailInput(attrs={'class':'form-control'}))
+    first_name = forms.CharField(required=True,label='Nome',widget=forms.TextInput(attrs={'class':'form-control'}))
+    last_name = forms.CharField(required=True,label='Sobrenome',widget=forms.TextInput(attrs={'class':'form-control'}))
+    username = forms.CharField(label='Utilizador',help_text='Obrigatório. 150 carateres ou menos. Apenas letras, dígitos @/./+/-/_.',widget=forms.TextInput(attrs={'class':'form-control'}))
+    password1 = forms.CharField(label='Palavra-passe',widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    password2 = forms.CharField(label='Confirmação da palavra-passe',help_text='Introduza a palavra-passe como acima, para verificação.',widget=forms.PasswordInput(attrs={'class':'form-control'}))
+
 
     class Meta:
         model = User
@@ -62,6 +66,7 @@ class QuizUserRegisterForm(UserCreationForm):
             'password1',
             'password2'
         ] 
+
 
 class DefficultyForm(forms.Form):
     difficulty = forms.ModelChoiceField(queryset=Difficulty.objects.all(), label='Saleccione o nível', widget=forms.Select,)
